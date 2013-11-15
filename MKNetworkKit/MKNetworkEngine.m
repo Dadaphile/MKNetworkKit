@@ -235,6 +235,28 @@ static NSOperationQueue *_sharedNetworkQueue;
   }
 }
 
+
+-(void) setMaxConcurrentOperationCount:(int) ops
+ {
+   if(ops != [_sharedNetworkQueue maxConcurrentOperationCount]){
+     [_sharedNetworkQueue setMaxConcurrentOperationCount:ops];
+   }
+ }
+ 
+ -(void) resetMaxConcurrentOperationCount
+ {
+   if([self.reachability currentReachabilityStatus] == ReachableViaWiFi)
+   {
+   [_sharedNetworkQueue setMaxConcurrentOperationCount:6];
+   }
+   else if([self.reachability currentReachabilityStatus] == ReachableViaWWAN)
+   {
+     [_sharedNetworkQueue setMaxConcurrentOperationCount:2];
+   }
+ }
+ 
+ 
+
 #pragma mark Freezing operations (Called when network connectivity fails)
 -(void) freezeOperations {
   
@@ -424,6 +446,7 @@ static NSOperationQueue *_sharedNetworkQueue;
   
   return nil;
 }
+
 
 -(void) enqueueOperation:(MKNetworkOperation*) operation {
   

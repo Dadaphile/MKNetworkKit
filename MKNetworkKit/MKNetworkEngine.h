@@ -253,6 +253,20 @@
 #endif
 
 /*!
+*  @abstract Set the max allowed network operations in the main queue
+*
+*/
+-(void)  setMaxConcurrentOperationCount:(int) ops;
+
+/*!
+* @abstract RESET the max allowed network operations in the main queue to defaults
+*  based on reachability
+*
+*/
+-(void)  resetMaxConcurrentOperationCount;
+
+
+/*!
  *  @abstract Enqueues your operation into the shared queue
  *  
  *  @discussion
